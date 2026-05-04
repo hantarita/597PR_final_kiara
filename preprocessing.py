@@ -29,6 +29,10 @@ MANUAL_ALIASES = {
     "university of wisconsin madison": "University of Wisconsin-Madison",
     "wisconsin madison": "University of Wisconsin-Madison",
     "ohio state university": "Ohio State University",
+    # Confirmed from fuzzy_review — exact names verified against cost CSV
+    "the university of texas at austin": "University of Texas Austin",
+    "royal holloway university of london": "Royal Holloway University",
+    "university of colorado boulder": "University of Colorado",
 }
 
 
