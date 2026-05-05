@@ -1,0 +1,58 @@
+=================================================================
+RQ1 Results — Is Popularity Priced?
+=================================================================
+
+── Demographic summary ──
+  Schools analysed:  71
+  Total offer rows:  26,971
+  Offer count range: 1 – 2574  (median 116)
+  Median cost range: $24,510 – $320,460
+
+  Country         Schools    Mean offers/school    Median cost
+  ------------------------------------------------------------
+  Australia             8                 319.4  $    127,400
+  Hong Kong             6                1377.5  $     28,990
+  Singapore             3                1625.7  $    202,890
+  UK                   35                 300.5  $    105,990
+  USA                  19                  39.7  $    169,260
+
+── H1a: Global correlation — offer count vs median cost ──
+  Pearson r  = -0.3218  (Bootstrap 95% CI: [-0.5495, -0.0631])
+  Spearman ρ = -0.5465  p=8.233e-07  ***
+  Interpretation: negative correlation — more-popular schools are cheaper on average.
+
+── H1b: Per-country Spearman correlations ──
+  UK             n= 35  rho=-0.567  p=0.0004  ***
+  USA            n= 19  rho=-0.268  p=0.2676  ns
+  Australia      n=  8  rho=+0.714  [descriptive only — n < 10]
+  Hong Kong      n=  6  rho=+0.406  [descriptive only — n < 10]
+  Singapore      n=  3  rho=-0.500  [descriptive only — n < 10]
+
+── H1c: Kruskal-Wallis — cost across offer-frequency bands ──
+  H=23.046,  p=3.95e-05  ***
+
+  Band         Schools   Mean offers     Mean cost   Median cost
+  ------------------------------------------------------------
+  Low               18           7.3  $   167,406  $   147,490
+  Mid-Low           18          60.3  $   148,658  $   132,775
+  Mid-High          17         247.9  $    95,757  $   113,150
+  High              18        1196.6  $    85,820  $    75,485
+
+  Pairwise Mann-Whitney U (vs High-frequency band):
+    Low vs High                medians=(147,490 vs 75,485)  U=286  p=0.0001  r=-0.765  ***
+    Mid-Low vs High            medians=(132,775 vs 75,485)  U=269  p=0.0008  r=-0.660  ***
+    Mid-High vs High           medians=(113,150 vs 75,485)  U=177  p=0.4379  r=-0.157  ns
+
+── Top 10 schools by offer volume ──
+  School                                        Country       Offers  Median Cost       Band
+  ------------------------------------------------------------------------------------------
+  Nanyang Technological University              Singapore      2,574 $   202,890       High
+  The Chinese University of Hong Kong           Hong Kong      2,361 $    30,910       High
+  National University of Singapore              Singapore      2,191 $   100,640       High
+  City University of Hong Kong                  Hong Kong      2,086 $    27,070       High
+  The Hong Kong Polytechnic University          Hong Kong      1,501 $    37,390       High
+  HKUST                                         Hong Kong      1,497 $   160,720       High
+  University of Manchester                      UK             1,214 $   140,485       High
+  University of Glasgow                         UK             1,014 $    47,985       High
+  University of Sydney                          Australia      1,009 $   138,900       High
+  University of Edinburgh                       UK               895 $   103,685       High

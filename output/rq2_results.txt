@@ -1,0 +1,55 @@
+=================================================================
+RQ2 Results — Does Undergraduate Tier Predict Destination Cost?
+=================================================================
+
+── Demographic summary ──
+  Tier           n        %     Mean cost   Median cost    Q4 (highest) %
+  --------------------------------------------------------------------
+  985        7,133    26.4%  $   106,349  $   100,640             34.5%
+  211        7,860    29.1%  $    91,457  $    92,885             26.1%
+  Other     11,978    44.4%  $    88,986  $    92,885             18.6%
+
+── Cost quartile distribution by tier (% within tier) ──
+  985: Q1_lowest: 26.1%  Q2: 13.7%  Q3: 25.7%  Q4_highest: 34.5%
+  211: Q1_lowest: 29.2%  Q2: 23.2%  Q3: 21.5%  Q4_highest: 26.1%
+  Other: Q1_lowest: 21.6%  Q2: 32.9%  Q3: 26.9%  Q4_highest: 18.6%
+
+── Destination country distribution by tier (% within tier) ──
+  985: UK: 22.2%  USA: 2.5%  Australia: 5.5%  Hong Kong: 36.0%  Singapore: 33.8%
+  211: UK: 37.4%  USA: 1.9%  Australia: 7.7%  Hong Kong: 35.3%  Singapore: 17.7%
+  Other: UK: 50.0%  USA: 3.6%  Australia: 13.0%  Hong Kong: 24.4%  Singapore: 8.9%
+
+── H2a: Kruskal-Wallis — cost distributions across tiers ──
+  H=275.21,  p=1.74e-60  ***
+  Median total cost:
+    985: $100,640  (n=7,133)
+    211: $92,885  (n=7,860)
+    Other: $92,885  (n=11,978)
+
+  Pairwise Mann-Whitney U (two-sided) with rank-biserial r:
+    985 vs 211       medians=(100,640 vs 92,885)  p=0.000000  r=-0.124  ***
+    985 vs Other     medians=(100,640 vs 92,885)  p=0.000000  r=-0.137  ***
+    211 vs Other     medians=(92,885 vs 92,885)  p=0.369675  r=-0.007  ns
+
+── H2b: Chi-square — tier vs cost quartile + Cramér's V ──
+  χ²=1300.3,  df=6,  p=9.45e-278  ***
+  Cramér's V = 0.1553  (small-to-medium practical effect)
+  Contingency table (raw counts):
+    985: Q1_lowest:  1864  Q2:   977  Q3:  1830  Q4_highest:  2462
+    211: Q1_lowest:  2295  Q2:  1826  Q3:  1691  Q4_highest:  2048
+    Other: Q1_lowest:  2584  Q2:  3940  Q3:  3221  Q4_highest:  2233
+
+── H2c: Within-country Kruskal-Wallis (tier effect net of country) ──
+  Country              n      KW_H         p    sig
+  ---------------------------------------------
+  Australia        2,555    27.000    0.0000    ***
+  Hong Kong        8,265   349.621    0.0000    ***
+  Singapore        4,877     5.532    0.0629     ns
+  UK              10,519    31.437    0.0000    ***
+  USA                755     0.860    0.6504     ns
+
+── H2d: OLS — does tier effect shrink after controlling for country? ──
+  (Cluster-robust SEs by destination school)
+  Model 1 (no country): is_985 coef=+17,363,  p=0.2867,  R²=0.016
+  Model 2 (+ country):  is_985 coef=+7,549,  p=0.2342,  R²=0.465
+  985 coefficient drop after adding country: 56.5%

@@ -1,0 +1,97 @@
+=================================================================
+RQ3 Results — Academic Indicators, Cost, and Country Differences
+=================================================================
+
+── Demographic summary — metric availability ──
+  Metric                        n   % matched      Mean       Std    Median
+  --------------------------------------------------------------------
+  gpa_4_standardized       26,742       99.2%     3.385     0.470     3.450
+  IELTS                    17,972       66.6%     6.693     0.477     6.500
+  TOEFL                     1,387        5.1%    97.552     8.887   100.000
+  GRE                       1,755        6.5%   321.160    26.919   323.000
+  GMAT                        702        2.6%   681.779    33.613   680.000
+
+── GPA band distribution ──
+  Band                n     Mean cost   Median cost    Q4 share
+  ----------------------------------------------------------
+  <3.0            4,223  $    92,343  $    92,885       19.1%
+  3.0-3.29        5,791  $    91,130  $    88,485       24.0%
+  3.3-3.59        7,677  $    95,454  $    92,885       27.5%
+  3.6+            9,051  $    96,074  $   100,640       26.3%
+
+── IELTS band distribution ──
+  Band                n     Mean cost   Median cost    Q4 share
+  ----------------------------------------------------------
+  <6.5            2,813  $    87,338  $    87,685       19.5%
+  6.5-6.99        7,588  $    92,167  $    88,485       28.4%
+  7.0-7.49        5,387  $    96,878  $   100,640       29.7%
+  7.5+            2,184  $   100,365  $   100,640       29.6%
+
+── H3d: Full correlation table — all metrics vs total cost ──
+  Metric                       n   Pearson r           p   sig   Spearman ρ           p   sig
+  -------------------------------------------------------------------------------------
+  gpa_4_standardized      26,742     +0.0253   3.435e-05   ***      +0.0353   8.054e-09   ***
+  IELTS                   17,972     +0.0661   7.574e-19   ***      +0.0774   2.859e-25   ***
+  TOEFL                    1,387     +0.2069   7.083e-15   ***      +0.2278   8.795e-18   ***
+  GRE                      1,755     +0.0580     0.01513     *      +0.0952    6.45e-05   ***
+  GMAT                       702     +0.0646     0.08725    ns      +0.0843     0.02545     *
+
+── H3a: Simple OLS — does GPA predict cost? (n=26,730) ──
+  cost ~ GPA: coef=+2,969 USD / 1-point GPA increase
+  p=0.6704  ns
+  R²=0.0006
+
+── H3b: Country-controlled OLS — does GPA effect shrink? ──
+  (Cluster-robust SEs by destination school)
+  cost ~ GPA + country: coef=+1,039 USD / 1-point GPA increase
+  p=0.7637  ns
+  R²=0.4636
+  GPA coefficient drop after adding country: 65.0%
+
+── H3c: Within-country Spearman (GPA vs cost) ──
+  Country              n       rho           p   sig
+  ------------------------------------------------
+  Australia        2,525   +0.1429    5.39e-13   ***
+  UK              10,435   +0.1411   1.507e-47   ***
+  Hong Kong        8,199   +0.0815   1.432e-13   ***
+  USA                742   +0.0554      0.1316    ns
+  Singapore        4,829   -0.1485   3.167e-25   ***
+
+── Country-specific Pearson + Spearman — GPA and IELTS vs cost ──
+  Country        Metric                       n   Pearson r   sig   Spearman ρ   sig
+  ------------------------------------------------------------------------------
+  Australia      gpa_4_standardized       2,525     +0.1403   ***      +0.1429   ***
+  Australia      IELTS                      960     +0.0709     *      +0.0352    ns
+  Hong Kong      gpa_4_standardized       8,202     +0.0175    ns      +0.0818   ***
+  Hong Kong      IELTS                    7,070     +0.1263   ***      +0.1218   ***
+  Singapore      gpa_4_standardized       4,829     -0.1200   ***      -0.1485   ***
+  Singapore      IELTS                    4,239     -0.0586   ***      -0.0523   ***
+  UK             gpa_4_standardized      10,444     +0.0614   ***      +0.1411   ***
+  UK             IELTS                    5,350     +0.0630   ***      +0.0992   ***
+  USA            gpa_4_standardized         742     +0.0541    ns      +0.0554    ns
+  USA            IELTS                      353     -0.0973    ns      -0.0744    ns
+
+── Within-country OLS: cost ~ GPA_z + IELTS_z + tier dummies ──
+  (Standardised coefficients — GPA and IELTS directly comparable)
+  Country              n      R²  Feature               Coeff         t   sig
+  ----------------------------------------------------------------------
+  Australia          955  0.0304  gpa_z              +1049.40    +3.233    **
+  Australia          955  0.0304  ielts_z             +559.89    +1.718    ns
+  Australia          955  0.0304  tier_211           +2679.29    +2.979    **
+  Australia          955  0.0304  tier_Other           +96.22    +0.115    ns
+  Hong Kong         7043  0.0477  gpa_z               +753.89    +1.258    ns
+  Hong Kong         7043  0.0477  ielts_z            +4877.95    +8.111   ***
+  Hong Kong         7043  0.0477  tier_211          -10731.57    -7.601   ***
+  Hong Kong         7043  0.0477  tier_Other        -22380.13   -15.388   ***
+  Singapore         4217  0.0225  gpa_z              -7093.59    -8.919   ***
+  Singapore         4217  0.0225  ielts_z            -1486.39    -1.875    ns
+  Singapore         4217  0.0225  tier_211           +1911.14    +1.069    ns
+  Singapore         4217  0.0225  tier_Other         +4555.45    +2.174     *
+  UK                5328  0.0126  gpa_z              +2865.91    +6.132   ***
+  UK                5328  0.0126  ielts_z            +1383.52    +2.928    **
+  UK                5328  0.0126  tier_211           +2647.59    +2.011     *
+  UK                5328  0.0126  tier_Other          +198.13    +0.159    ns
+  USA                352  0.0127  gpa_z              +2037.84    +0.640    ns
+  USA                352  0.0127  ielts_z            -5786.59    -1.772    ns
+  USA                352  0.0127  tier_211           -3774.64    -0.438    ns
+  USA                352  0.0127  tier_Other         +2695.65    +0.353    ns
