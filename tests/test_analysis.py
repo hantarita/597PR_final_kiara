@@ -457,10 +457,12 @@ class TestLoadMatchedData:
 
     def test_loads_csv_and_coerces_numeric_columns(self, tmp_path: Path) -> None:
         p = tmp_path / "data.csv"
+        # Include all columns that load_matched_data coerces to numeric
         p.write_text(
-            "match_status,cost_total_usd,gpa_4_standardized\n"
-            "matched,80000,3.5\n"
-            "unmatched,,\n",
+            "match_status,cost_total_usd,gpa_4_standardized,"
+            "cost_tuition_usd,cost_rent_usd,cost_duration_years\n"
+            "matched,80000,3.5,20000,1000,1.0\n"
+            "unmatched,,,,,\n",
             encoding="utf-8",
         )
         df = load_matched_data(p)
