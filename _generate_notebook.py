@@ -696,6 +696,41 @@ RQ3_IELTS_BAND_BAR = """show_svg(make_bar_chart(
 ))
 """
 
+RQ3_GPA_COUNTRY_PIVOT = """# Mean cost by country x GPA band — shows Singapore reversal directly
+rq3_gpa_country_cost = (
+    matched[matched['cost_country'].isin(['UK', 'Singapore', 'Australia', 'USA', 'Hong Kong'])]
+    .groupby(['cost_country', 'gpa_band'], observed=False)
+    .agg(
+        rows=('gpa_band', 'size'),
+        mean_cost_usd=('cost_total_usd', 'mean'),
+        median_cost_usd=('cost_total_usd', 'median'),
+    )
+    .reset_index()
+)
+print('Mean destination cost (USD) by country × GPA band:')
+rq3_gpa_country_cost.pivot(
+    index='cost_country', columns='gpa_band', values='mean_cost_usd'
+).round(0)
+"""
+
+RQ3_IELTS_COUNTRY_PIVOT = """# Mean cost by country x IELTS band — Singapore high-IELTS → lower cost
+rq3_ielts_country_cost = (
+    matched[matched['cost_country'].isin(['UK', 'Singapore', 'Australia', 'USA', 'Hong Kong'])]
+    .dropna(subset=['IELTS'])
+    .groupby(['cost_country', 'ielts_band'], observed=False)
+    .agg(
+        rows=('ielts_band', 'size'),
+        mean_cost_usd=('cost_total_usd', 'mean'),
+        median_cost_usd=('cost_total_usd', 'median'),
+    )
+    .reset_index()
+)
+print('Mean destination cost (USD) by country × IELTS band:')
+rq3_ielts_country_cost.pivot(
+    index='cost_country', columns='ielts_band', values='mean_cost_usd'
+).round(0)
+"""
+
 RQ3_CORR_BAR = """gpa_rows  = rq3_country_corr[rq3_country_corr['metric'] == 'gpa_4_standardized']
 ielts_rows = rq3_country_corr[rq3_country_corr['metric'] == 'IELTS']
 show_svg(make_grouped_bar_chart(
@@ -913,8 +948,10 @@ cells = [
     code(RQ3_GPA_BAND),
     code(RQ3_IELTS_BAND),
     code(RQ3_GPA_BAND_BAR),
+    code(RQ3_GPA_COUNTRY_PIVOT),
     code(RQ3_COUNTRY_CORR),
     code(RQ3_IELTS_BAND_BAR),
+    code(RQ3_IELTS_COUNTRY_PIVOT),
     code(RQ3_CORR_BAR),
     code(RQ3_FULL_CORR),
     code(RQ3_COUNTRY_P),
