@@ -874,9 +874,9 @@ This is exactly the value of linking the two datasets: the offer data alone cann
 
 LIMITATIONS_MD = """## 7. Limitations
 
-- The analysis only includes rows that could be matched to the cost dataset (88.5% match rate; 11.5% of rows are excluded).
+- The analysis only includes rows that could be matched to the cost dataset (88.37% match rate; 11.63% of rows are excluded).
 - `cost_total_usd` is a representative school-level estimate rather than a customised cost for each exact applicant-program combination.
-- Undergraduate institution tier is based on the 985/211 classification loaded from `university_tier.csv` with fuzzy matching — transparent and reproducible, but still only one operationalisation of applicant background.
+- Undergraduate institution tier is based on the 985/211 classification loaded from `university_tier.csv`; this remains only one operationalisation of applicant background.
 - TOEFL, GRE, and GMAT are much sparser than GPA and IELTS (< 7 % coverage each), so they are best treated as supplementary evidence.
 - Some destination systems — especially Hong Kong and Singapore — have few distinct cost values in the matched sample (3 and 6 schools respectively), which limits how much can be learned from within-country correlation alone.
 - The cluster-robust OLS for H3a clusters by destination school (71 clusters); with cost_total_usd being school-level constant, this removes most individual variation, making GPA non-significant in the OLS even though individual-level correlations are significant.
@@ -896,7 +896,7 @@ cells = [
        "We first load the cleaned dataset and convert the main analysis columns to numeric form. "
        "Because all three research questions require cost information, the main analysis uses only rows "
        "that were successfully matched to the cost dataset. "
-       "Tier assignment uses `university_tier.csv` with fuzzy matching for robustness."),
+       "The current preprocessing linkage uses a 3-stage school matching pipeline: exact match, manual alias mapping, and normalized unique-name matching."),
 
     code(LOAD_DATA),
     code(SVG_HELPERS),
@@ -953,8 +953,6 @@ cells = [
     code(RQ3_IELTS_BAND_BAR),
     code(RQ3_IELTS_COUNTRY_PIVOT),
     code(RQ3_CORR_BAR),
-    code(RQ3_FULL_CORR),
-    code(RQ3_COUNTRY_P),
     code(RQ3_SCATTER_REGRESSION),
     code(RQ3_COEF_BAR),
     code(RQ3_OLS_TABLE),
